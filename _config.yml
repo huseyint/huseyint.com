@@ -1,0 +1,28 @@
+#
+# Blog Settings
+#
+author: Huseyin Tufekcilerli
+description: Huseyin'in Yeri
+url: http://huseyint.com
+title: Huseyin'in Yeri
+subtitle: foo bar
+
+# Github repositories
+github_user: huseyint
+github_repo_url: https://github.com/huseyint/huseyint.com/
+
+# Twitter
+twitter_user: huseyint
+twitter_tweet_button: true
+
+#
+# Jekyll Settings
+#
+markdown: rdiscount
+pygments: true
+permalink: /archive/:year/:month/:day/:title/
+rdiscount:
+  extensions: [smart]
+paginate: 5
+paginate_path: "page/:num"
+category_dir: categories
