@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>ResetModem - Program.cs</title>
+<style type="text/css">
+p { margin: 0 }
+span.kw { color: blue }
+span.str { color: #a31515 }
+span.id { color: #2b91af }
+span.cmt { color: green }
+</style>
+</head>
+<body>
+<div style="font-family: Consolas, Courier New; font-size: 10pt; color: black; background: white;">
+<p><span class="kw">using</span> System;</p>
+<p><span class="kw">using</span> System.Collections.Generic;</p>
+<p><span class="kw">using</span> System.IO;</p>
+<p><span class="kw">using</span> System.Net;</p>
+<p><span class="kw">using</span> System.Reflection;</p>
+<p><span class="kw">using</span> System.Text;</p>
+<p><span class="kw">using</span> System.Web;</p>
+<p>&nbsp;</p>
+<p><span class="kw">namespace</span> Huseyint.ResetModem</p>
+<p>{</p>
+<p>&nbsp;&nbsp;&nbsp; <span class="kw">class</span> <span class="id">Program</span></p>
+<p>&nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">static</span> <span class="kw">void</span> Main(<span class="kw">string</span>[] args)</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">if</span> (args.Length == 1 &amp;&amp; args[0].Equals(<span class="str">&quot;/?&quot;</span>))</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; PrintHelp();</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">else</span></p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Dictionary</span>&lt;<span class="kw">string</span>, <span class="kw">string</span>&gt; arguments = GetArgs(args);</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> ip&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; = arguments.ContainsKey(<span class="str">&quot;/ip&quot;</span>)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; ? arguments[<span class="str">&quot;/ip&quot;</span>]&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; : <span class="str">&quot;192.168.2.1&quot;</span>;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> password = arguments.ContainsKey(<span class="str">&quot;/password&quot;</span>) ? arguments[<span class="str">&quot;/password&quot;</span>] : <span class="str">&quot;&quot;</span>;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> airtiesUrl = <span class="kw">string</span>.Format(<span class="str">&quot;http://{0}/cgi-bin/webcm&quot;</span>, ip);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; password = <span class="id">HttpUtility</span>.UrlEncode(password);</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> loginCmd = <span class="str">&quot;getpage=..%2Fhtml%2Fhome%2Findex.html&amp;errorpage=..%2Floginm.html&quot;</span> +</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; <span class="str">&quot;&amp;var%3Apagename=home&amp;var%3Aerrorpagename=home&amp;var%3Amenu=home&amp;va&quot;</span> +</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; <span class="str">&quot;r%3Amenutitle=Home&amp;var%3Apagetitle=Home&amp;var%3Apagemaster=home&amp;=%&quot;</span> +</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; <span class="str">&quot;3C%3F+error+found+%3F%3E&amp;login%3Acommand%2Fusername=&amp;login%3Acom&quot;</span> +</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; <span class="str">&quot;mand%2Fpassword=&quot;</span> + password;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> resetCmd = <span class="str">&quot;logic%3Acommand%2Freboot=&quot;</span>;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="cmt">// Login</span></p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; MakePost(airtiesUrl, loginCmd);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="cmt">// Reset</span></p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; MakePost(airtiesUrl, resetCmd);</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;Reset signal sent successfully to AirTies modem at {0}&quot;</span>, ip);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">private</span> <span class="kw">static</span> <span class="kw">void</span> PrintHelp()</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">AssemblyName</span> assemblyName = <span class="id">Assembly</span>.GetExecutingAssembly().GetName();</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;AirTies ADSL Modem Reset Utility {0}&quot;</span>, assemblyName.Version);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;Copyright (C) H&#252;seyin T&#252;fek&#231;ilerli 2008 - http://huseyint.com/&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;Syntax: {0} [Options]&quot;</span>, assemblyName.Name);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;Options:&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t/ip:IPAddress\t\tIP address of the modem&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t/password:Password\tYour modem's password&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;Both parameters are optional. Sample usage:&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t{0} /ip:192.168.2.1 /password:123456&quot;</span>, assemblyName.Name);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t{0} /password:123456&quot;</span>, assemblyName.Name);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t{0} /ip:192.168.2.1&quot;</span>, assemblyName.Name);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;\t{0}&quot;</span>, assemblyName.Name);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Console</span>.WriteLine(<span class="str">&quot;&quot;</span>);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">static</span> <span class="id">Dictionary</span>&lt;<span class="kw">string</span>, <span class="kw">string</span>&gt; GetArgs(<span class="kw">string</span>[] args)</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">Dictionary</span>&lt;<span class="kw">string</span>, <span class="kw">string</span>&gt; retVal = <span class="kw">new</span> <span class="id">Dictionary</span>&lt;<span class="kw">string</span>, <span class="kw">string</span>&gt;();</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">foreach</span> (<span class="kw">string</span> arg <span class="kw">in</span> args)</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">int</span> colon = arg.IndexOf(<span class="str">':'</span>);</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">if</span> (colon &gt;= 0)</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> key = arg.Substring(0, colon).Trim();</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">string</span> value = arg.Substring(colon + 1).Trim();</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; retVal.Add(key, value);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">return</span> retVal;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">static</span> <span class="kw">void</span> MakePost(<span class="kw">string</span> url, <span class="kw">string</span> postData)</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">HttpWebRequest</span> request = <span class="id">WebRequest</span>.Create(url) <span class="kw">as</span> <span class="id">HttpWebRequest</span>;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; request.AllowAutoRedirect = <span class="kw">false</span>;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; request.Method = <span class="str">&quot;POST&quot;</span>;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="id">ASCIIEncoding</span> encoding = <span class="kw">new</span> <span class="id">ASCIIEncoding</span>();</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">byte</span>[] postDataBytes = encoding.GetBytes(postData);</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; request.ContentType = <span class="str">&quot;application/x-www-form-urlencoded&quot;</span>;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; request.ContentLength = postDataBytes.Length;</p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span class="kw">using</span> (<span class="id">Stream</span> newStream = request.GetRequestStream())</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; newStream.Write(postDataBytes, 0, postDataBytes.Length);</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p>
+<p>&nbsp;&nbsp;&nbsp; }</p>
+<p>}</p>
+</div>
+</body>

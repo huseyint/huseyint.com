@@ -1,0 +1,28 @@
+body {
+	font: 11px/14px Verdana, Arial, sans-serif;
+	margin: 0;
+	background-color: #330;
+}
+a, a:visited, a:hover, a:active{color:#330;}
+h1,h2{font-family: "Trebuchet MS", Arial, Verdana, sans-serif;}
+h1{font-size:1.6em;}
+h2{font-size:1.3em;padding-top:15px;}
+img{border:0;}
+div#container {
+	margin: 20px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #cf3;
+}
+li.version{list-style:none;}
+li.version ul{margin:0 10px;padding:0;}
+ul#bookmark{padding:5px;margin:5px;}
+ul#bookmark li {display:inline;padding:2px;}
+div#donate{text-align:center;margin:10px;}
+p#warning {
+	background-color: #330;
+	border:1px solid #cf3;
+	color:#fff;
+	padding:20px;
+	font-weight:bold;
+}

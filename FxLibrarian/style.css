@@ -1,0 +1,56 @@
+body {
+	color: #333333;
+	font-family: Calibri,Arial,sans-serif;
+	font-size: 1em;
+	line-height: 1.4;
+	background: #fff url(img/topbluefade.gif) repeat-x scroll 50% 0%;
+	margin:0;
+}
+
+#contents {
+	margin: 10px 10px 20px 40px;
+}
+
+h1, h2 {
+	font-family: Cambria, "Trebuchet MS", serif;
+}
+
+#tagline h1 {
+	font-size: 100%;
+	font-weight: normal;
+	margin: 0;
+}
+
+h2 {
+	font-size: 120%;
+	margin: 12px 0 3px 0;
+}
+
+p {
+	margin: 3px 0;
+}
+
+ul {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#screenshot {
+	width:825px;
+	height:625px;
+	margin:0;
+	padding:0;
+	background: url(img/screenshot.png) no-repeat;
+}
+
+#screenshot img {
+	position:relative;
+	left:650px;
+	top:450px;
+	border:0;
+}
+
+:focus
+{
+  -moz-outline-style: none;
+}

@@ -1,0 +1,87 @@
+
+/* General Styles */
+*{margin:0;padding:0;}
+
+body {
+	font: 11px/14px Verdana, "Trebuchect MS", Arial, sans-serif;
+}
+/*div{border:1px solid #000;}*/
+/* General Styles */
+
+/* Anchor Styles */
+a {
+text-decoration: none;
+}
+a:link, a:visited {
+	color: #333;
+	padding-bottom:1px;
+	border-bottom: 1px solid #669;
+}
+a:hover {
+	color: #fff;
+	background-color: #99c;
+}
+/* Anchor Styles */
+
+/* Header Styles */
+#header {
+	width:100%;
+	height: 70px;
+	background: #99c url(images/elephant.gif) no-repeat 15px 8px;
+	border-bottom: 4px solid #669;
+	
+}
+#header h1 {
+	padding: 20px 0 0 110px;
+	font: 2em Arial, Verdana, "Trebuchect MS", sans-serif;
+	color: #fff;
+
+}
+/* Header Styles */
+
+/* Main Styles */
+#main {
+	width: 760px;
+	padding:10px;
+}
+/* Main Styles */
+
+/* Content Styles */
+#content {
+	float: left;
+	padding: 10px;
+	background-color: #e6e6ff;
+	border: 1px solid #669;
+}
+
+#content h2 {
+	font: 1.5em Arial, Verdana, sans-serif;
+	font-weight: bold;
+	color: #669;
+	line-height: 2;
+}
+#content p {
+	margin: 10px 0;
+	line-height: 1.5;
+}
+#content strong {
+	color: #669;
+}
+p.script {
+	padding: 10px 0 5px 20px;
+	background: url(images/script.gif) no-repeat 0 12px;
+}
+p.download {
+	padding: 0px 0 5px 20px;
+	background: url(images/download.gif) no-repeat 0 2px;
+}
+/* Content Styles */
+
+/* Footer Styles */
+#footer {
+	margin-top: 20px;
+	padding: 10px;
+	border-top: 4px solid #669;
+	clear: both;
+}
+/* Footer Styles */

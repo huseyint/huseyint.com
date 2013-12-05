@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="tr">
+<head>
+<title>Apache 2.0.55 Kurulumu</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+<!--#include virtual="_mint.html" -->
+</head>
+<body>
+<div id="header">
+	<h1>Apache 2.0.55 Kurulumu</h1>
+</div>
+<div id="main">
+
+<!--#include virtual="_menu.html" -->
+
+	<div id="content">
+		<h2>1. Apache kurulum dosyasını indirme</h2>
+		<p>
+		Öncelikle web server yazılımı olarak kullanacağımız Apache'nin kurulum dosyasını (<strong>apache_2.0.55-win32-x86-no_ssl.msi</strong> - 4.2MB) bilgisayarımıza indirmemiz gerek. Bunun için aşağıdaki adreslerden birini kullanabilirsiniz:
+		</p>
+		<ul>
+			<li><a href="http://apache.bilkent.edu.tr/dist/httpd/binaries/win32/apache_2.0.55-win32-x86-no_ssl.msi">Bilkent Üniversitesi Yansısı</a></li>
+			<li><a href="http://godel.cs.bilgi.edu.tr/mirror/apache/httpd/binaries/win32/apache_2.0.55-win32-x86-no_ssl.msi">Bilgi Üniversitesi Yansısı</a></li>
+			<li><a href="http://apache.progen.com.tr/dist/httpd/binaries/win32/apache_2.0.55-win32-x86-no_ssl.msi">Progen Web Hosting Yansısı</a></li>
+		</ul>
+
+
+		<h2>2. IIS'nin kapalı olduğundan emin olun</h2>
+		<p>
+		Eğer Windows XP Professional kullanıyorsanız IIS (Internet Information Server) adlı diğer bir web server yazılımı makinanızda çalışıyor olabilir. Apache'yi kurabilmek IIS'yi kapatmanız gerekmekte. Bunun için Control Panel (Denetim Masası) penceresine gidip oradan Administrative Tools (Yönetimsel Araçlar) altından Services (Hizmetler) adlı simgeye çift tıklayarak bilgisayarınızda yüklü olan servisleri görüntüleyebilirsiniz.
+		</p>
+		<div class="screenshot"><img src="images/IIS-Servisini-Durdurmak.png" width="557" height="329" alt="IIS Servisini Durdurmak" /></div>
+		<p>
+		Karşınıza gelen hizmet listesinin sonlarına doğru gelip <strong>World Wide Web Publishing</strong> servisine sağ tıklayarak <strong>Stop</strong>'u seçelim. Böylelikle IIS kapanmış olacaktır.
+		</p>
+
+		<h2>3. Apache Kurulumu</h2>
+		<p>
+		İlk adımda indirmiş olduğumuz <strong>apache_2.0.55-win32-x86-no_ssl.msi</strong> dosyasını çalıştırıyoruz. Karşılama ekranını <strong>Next</strong> butonuna basarak geçtikten sonra karşımıza lisans sözleşmesi penceresi geliyor. "I accept the terms in the license agreement" seçeneğini işaretleyip tekrar <strong>Next</strong> butonuna tıklayarak bir sonraki ekrana geçiyoruz. Gelen ekranda Apache hakkında ayrıntılı bilgiler, web adresleri, vs. bulunmakta <strong>Next</strong> yapıp bunu da geçiyoruz. Karşımıza bu sefer <strong>Server Information</strong> penceresi geliyor.
+		</p>
+
+		<div class="screenshot"><img src="images/Server-Information-Penceresi.png" width="504" height="388" alt="Server Information Penceresi" /></div>
+		<p>
+		Şekildeki gibi üst kısımda bulunan 3 tane metin kutusu dolu olarak gelecektir. Bunlar sırasıyla domaininiz, sunucu isminiz ve yönetici mail adresinizdir. Geliştirme amaçlı bir sunucu kurulumu yaptığımız için bu bilgilerin doğrulu o kadar fazla önemli değildir, bu yüzden olduğu gibi bırakıp <strong>Next</strong> butonu ile devam ediyoruz. Gelen ekrandaki <strong>Typical</strong> seçeneğinin işaretli olduğundan emin olup devam ediyoruz. Programın kurulacağı varsayılan yer olan <strong>C:\Program Files\Apache Group\</strong> yolunu değiştirmeden devam ediyoruz. <strong>Install</strong> butonuna basmamızla dosyalar kopyalanmaya başlıyor.
+		</p>
+
+		<p>
+		Eğer bilgisayarınızda Windows XP Service Pack 2 yüklü ve dahili Firewall açık ise karşınıza aşağıdaki uyarı ekranı gelecektir. Apache'nin çalışabilmesi için bu pencereyi <strong>Unblock</strong> butonuna basarak kapatıyoruz.
+		</p>
+		<div class="screenshot"><img src="images/Windows-Firewall-Mesaji.png" width="434" height="312" alt="Windows Firewall Uyarı Mesajı" /></div>
+
+		<p>
+		En son <strong>Finish</strong> butonuna basarak kurlumu tamamlıyoruz. Eğer her şey düzgün gitti ise ekranımızın sağ alt köşesinde üzerinde yeşil bir ok bulunan Apache simgesi bize web sunucumuzun çalıştığını gösteriyor olacaktır. Yine de çalıştığını gözlerimizle görmek istersek bir web tarayıcısı açarak adres çubuğuna <a href="http://localhost/" title="Apache Test Sayfası">http://localhost/</a> yazarak kurulum ile gelen Apache Test Sayfasını görebiliriz.
+		</p>
+		<div class="screenshot"><img src="images/Apache-Test-Sayfasi.png" width="555" height="628" alt="Apache Test Sayfası" /></div>
+		<p>
+		<strong>Not: </strong><a href="http://127.0.0.1/" title="Apache Test Sayfası">http://127.0.0.1/</a> veya <a href="http://test/" title="Apache Test Sayfası">http://test/</a> adresleri de bizi aynı sayfaya, yani web sunucumuzun kökünde bulunan varsayılan sayfaya götürecekti. Burdaki 127.0.0.1 makinemizin IP adresi, test ise makinemizin ismidir.
+		</p>
+
+		<h2>4. Sunucu kök dizinini değiştirme</h2>
+		<p>
+		Apache kurulumu böylelikle tamamlanmıştır. Web sunucunuzun kök dizini varsayılan olarak <strong>C:\Program Files\Apache Group\Apache2\htdocs</strong> olacaktır. Sıkça bu dizin ile işimiz olacağından böyle uzun bir yol zorluklar çıkaracaktır. Bunu daha ulaşılabilir bir klasör yapmak için Apache konfigürasyon dosyası olan <strong>C:\Program Files\Apache Group\Apache2\conf\httpd.conf</strong> dosyasını Notepad gibi bir metin editörü ile açıyoruz. Dosyada CTRL+F tuş kombinasyonunu kullanarak <strong>DocumentRoot "C:/Program Files/Apache Group/Apache2/htdocs"</strong> metnini aratıyoruz veya CTRL+G yapıp 228. satıra gidiyoruz. Eğer web sunucumuzun yeni kök dizinini <strong>C:\Apache</strong> yapmak istiyorsak bu satırı <strong>DocumentRoot "C:/Apache"</strong> yapıyoruz (<strong>\</strong> yerine <strong>/</strong> kullandığımıza dikkat edin). Bu satırın biraz daha aşağısında (253. satır) bulunan <strong>&lt;Directory "C:/Program Files/Apache Group/Apache2/htdocs"&gt;</strong> ifadesini de benzer bir şekilde <strong>&lt;Directory "C:/Apache"&gt;</strong> yapıyoruz. Bu dosyada yaptığımız herhangi bir değişikliğin aktif olması için Apache'yi yeniden başlatmamız gerek.
+		</p>
+		<div class="screenshot"><img src="images/Apache-Konfigurasyon-Dosyasi.png" width="518" height="228" alt="Apache Konfigürasyon Dosyası" /></div>
+
+
+		<h2>5. Apache'yi yeniden başlatma</h2>
+		<p>
+		Apache'yi yeniden başlatmak için ekranın sağ alt köşesinde bulunan Apache simgesine çift tıklıyarak <strong>Apache Service Monitor</strong> penceresini açıyoruz. 
+		</p>
+		<div class="screenshot"><img src="images/Apache-Service-Monitor.png" width="531" height="338" alt="Apache Servis Monitörü" /></div>
+		<p>
+		Apache'yi yeninden başlatmak için sağ taraftan <strong>Restart</strong> butonuna basıyoruz. Eğer bir hata aldıysak <strong>httpd.conf</strong> dosyasında yaptığımız ayarların doğruluğunu kontrol edip yeniden başlatmayı tekrar deneyin.
+		</p>
+
+		<p id="breadcrumb">
+		<a class="left" href="index.html" title="Ana Sayfa">&laquo; Ana Sayfa</a>
+		<a class="right" href="PHP-Kurulumu.html" title="PHP 5 Kurulumu">PHP Kurulumu &raquo;</a>
+		</p>
+	</div>
+
+	<div style="clear:both;"></div>
+</div>
+
+<div id="footer">
+<!--#include virtual="_copyright.html" -->
+<p>Son güncelleme 13.05.2006</p>
+</div>
+</body>
+</html>

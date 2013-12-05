@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="tr">
+<head>
+<title>PHP 5.1.4 Kurulumu</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+<!--#include virtual="_mint.html" -->
+</head>
+<body>
+<div id="header">
+	<h1>PHP 5.1.4 Kurulumu</h1>
+</div>
+<div id="main">
+
+<!--#include virtual="_menu.html" -->
+
+	<div id="content">
+		<h2>1. PHP kurulum dosyasını indirme</h2>
+		<p>
+		<a href="http://www.php.net/downloads.php" title="PHP 5.1.4 Download Sayfası">http://www.php.net/downloads.php</a> adresine gidip <strong>Windows Binaries</strong> başlığı altından <a href="http://www.php.net/get/php-5.1.4-Win32.zip/from/a/mirror" title="PHP 5.1.4 Zip Paketi">PHP 5.1.4 zip package</a> linkine tıklıyoruz. Bulunduğunuz coğrafi bölgeye en yakın yansı karşınıza gelecektir, <a href="http://tr.php.net/get/php-5.1.4-Win32.zip/from/this/mirror" title="Bilkent Sunsite">tr.php.net</a> gibi. Bağlantıya tıklayarak dosyayı indirmeye başlıyoruz.
+		</p>
+		
+		<h2>2. PHP kurulumu</h2>
+		<p>
+		Dosyayı indirdikten sonra herhangi bir dosya sıkıştırma/açma programı ile (WinRAR, WinZip, vs.) dosyayı <strong>C:\php</strong> dizinine açıyoruz. Daha sonra bu klasörde bulunan <strong>php.ini-dist</strong> dosyasının ismini <strong>php.ini</strong> şeklinde değiştiriyoruz ve Notepad ile açıyoruz. Dosyadaki	<strong>doc_root =</strong> satırına (464. satır) gidip bu satırı <strong>doc_root = "C:\Apache"</strong> şeklinde değiştiriyoruz. Biraz aşağıda da (471. satır) <strong>extension_dir = "./"</strong> satırını da <strong>extension_dir = "C:\php\ext"</strong> şeklinde değiştiriyoruz.
+		</p>
+
+		<h2>3. PHP'yi Apache'ye tanıtma</h2>
+		<p>
+		Apache PHP'yi iki farklı şekilde çalıştırabilir, ya CGI binary şeklinde (php-cgi.exe dosyası ile) ya da Apache Module DLL şeklinde (php5apache2.dll dosyası ile). Daha iyi performans almak için PHP'yi Apache'ye DLL Module şeklinde tanıtacağız. Apache'ye kurmuş olduğumuz PHP'yi tanıtmak için <strong>C:\Program Files\Apache Group\Apache2\conf\httpd.conf</strong> dosyasına bazı satırlar eklememiz gerek. Bu dosyayı Notepad ile açıp CTRL+F tuş kombinasyonu ile <strong>LoadModule</strong> diye bir arama yapıyoruz. <strong>LoadModule</strong> kelimesinin ilk bulunduğu yerin biraz altında <strong>LoadModule</strong> ile başlıyan bir sürü satır göreceksiniz. Bunların en sonuna gidiyoruz (173. satır) ve aşağıdaki 3 satırı oradaki boşluğa ekliyoruz:
+		</p>
+		<blockquote>
+		LoadModule php5_module "c:/php/php5apache2.dll"<br />
+		AddType application/x-httpd-php .php<br />
+		PHPIniDir "C:/php"<br />
+		</blockquote>
+		<p>
+		Değişiklikten sonra dosya şu şekilde görünmeli:
+		</p>
+		<div class="screenshot"><img src="images/Apache-LoadModule.png" width="531" height="293" alt="Apache httpd.conf LoadModule Satırları" /></div>
+		
+		<p>
+		Dosyayı kaydedip Apache'yi yeniden başlatıyoruz. Bu değişiklik ile Apache'ye PHP'yi tanıtmış olduk. Eğer bir sorun yok ise hiç bir hata mesajı almadan aşağıdaki ekran gelir. Pencerinin altındaki <strong>PHP/5.1.4</strong> Apache'nin PHP'yi tanımış olduğunu doğrular.
+		</p>
+		<div class="screenshot"><img src="images/Apache-PHP-Restart.png" width="531" height="338" alt="Apache PHP'yi Tanıdı" /></div>
+
+		<h2>4. PHP'nin çalıştığından emin olma</h2>
+		<p>
+		PHP'nin gerçekten çalıştığını görmek için web sunucumuzun kök dizininde, <strong>C:\Apache</strong>, <strong>index.php</strong> diye bir dosya oluşturun ve içine aşağıdaki PHP kodunu yazın ve kaydedin.
+		</p>
+		<blockquote>
+		&lt;?php<br />
+		phpinfo();<br />
+		?&gt;<br />
+		</blockquote>
+
+		<p>
+		Daha sonra web tarayıcınızı açarak <a href="http://localhost/index.php" title="PHP'yi test edin">http://localhost/index.php</a> adresine gidin. Karşınıza aşağıdaki gibi bir ekran çıktı ise PHP kurulumunuz başarılı bir şekilde gerçekleşmiştir.
+		</p>
+		<div class="screenshot"><img src="images/PHP-Kurulum-Tamamlandi.png" width="560" height="415" alt="PHP Kuruldu" /></div>
+
+
+		<h2>5. Apache'ye index.php dosyasını varsayılan olarak tanıtma</h2>
+		<p>
+		<a href="http://localhost/" title="localhost">http://localhost/</a> adresine gittiğimizde dosyamızın ismi <strong>index.php</strong> olmasına rağmen Apache bu dosyayı açmaz, bu dizin altındaki tüm dosyaların listesini gösterir. Eğer <strong>index.php</strong> ismine sahip dosyaların varsayılan olarak açılmasını istiyorsak <strong>httpd.conf</strong> dosyasında bunu belirtmemiz lazım. Bunun için dosyayı açıyoruz ve <strong>DirectoryIndex index.html index.html.var</strong> satırına (327. satıra) gidiyoruz. Satırı şu şekilde değiştiriyoruz, dosyayı kaydediyoruz ve Apache'yi yeniden başlatıyoruz.
+		</p>
+		<blockquote>
+		DirectoryIndex index.html index.html.var index.php
+		</blockquote>
+
+		<p>
+		Artık <a href="http://localhost/" title="localhost">http://localhost/</a> adresine gittiğimizde otomatik olarak <strong>index.php</strong> dosyası açılıyor.
+		</p>
+
+		<p id="breadcrumb">
+		<a class="left" href="Apache-Kurulumu.html" title="Apache 2.0.55 Kurulumu">&laquo; Apache Kurulumu</a>
+		<a class="right" href="MySQL-Kurulumu.html" title="MySQL 4.1.18 Kurulumu">MySQL Kurulumu &raquo;</a>
+		</p>
+	</div>
+
+	<div style="clear:both;"></div>
+</div>
+
+<div id="footer">
+<!--#include virtual="_copyright.html" -->
+<p>Son güncelleme 13.05.2006</p>
+</div>
+</body>
+</html>

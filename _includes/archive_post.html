@@ -1,0 +1,22 @@
+{% capture date %}{{ post.date }}{% endcapture %}
+{% capture this_year %}{{ date | date: "%Y" }}{% endcapture %}
+{% unless year == this_year %}
+	{% assign year = this_year %}
+	{% unless forloop.first %}
+		</section>
+	{% endunless %}
+	<section class="archives"><h2 class="year">{{ date | date: "%Y" }}</h2>
+{% endunless %}
+<article itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name"><a href="{{ root_url }}{{ post.url }}">{{post.title}}</a></h1>
+	<div class="meta">
+		<span class="date"><time datetime="{{ date | datetime | date_to_xmlschema }}" itemprop="datePublished">{{ date | date: "%b %e" }}</time></span>
+		<br>
+			{% if post.categories.length > 0 %}
+			<span class="tags">{% include post/categories.html %}</span>
+			{% endif %}
+	    {% if site.disqus_short_name and post.comments == true and site.disqus_show_comment_count == true %}
+		    {% include post/comments_link.html %}
+	    {% endif %}
+	</div>
+</article>

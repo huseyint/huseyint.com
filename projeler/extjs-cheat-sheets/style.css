@@ -1,0 +1,64 @@
+*{margin:0; padding:0;}
+body {
+	font: 11px/16px Verdana, Arial, sans-serif;
+	background: #fff url('bg.gif') no-repeat 50% 10px fixed;
+	text-align: center;
+	color: #3a6fb3;
+}
+
+div {margin:4px;}
+img{border:0;}
+a:hover {background-color: #eef5fe}
+
+h1, h2 { font: "Trebuchet MS", Arial, sans-serif; line-height: 26px}
+h1 {font-size: 20px; }
+h2 {font-size: 16px; }
+
+div#main {
+	width: 550px;
+	margin: auto;
+	margin-top: 180px;
+}
+
+div#thumbnail {float:left;}
+
+div#thumbnail a {
+	float: left;
+	border: 4px solid #eef5fe;
+	padding: 4px;
+}
+
+div#thumbnail a:hover {
+	border-color: #9cb7d9;
+}
+
+div#download {float:right;text-align:left;}
+
+div#download a {
+	display: block;
+	text-decoration: none;
+	vertical-align: middle;
+	color: #3a6fb3;
+	margin: 8px;
+}
+
+div#download a img {
+	padding-top: 4px;
+	margin-right: 4px;
+	background: transparent;
+}
+
+div#footer {
+	width: 100%;
+	clear: both;
+	padding: 10px;
+}
+
+div#footer a, div#footer a:hover {
+	text-decoration: none;
+	color: #3a6fb3;
+	padding-bottom: 2px;
+	border-bottom: 1px dashed #3a6fb3;
+}
+
+div#ads {margin-top: 20px;}

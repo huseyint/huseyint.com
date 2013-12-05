@@ -49,6 +49,7 @@ GEM
     redcarpet (2.3.0)
     safe_yaml (0.9.7)
     syntax (1.0.0)
+    wdm (0.1.0)
     yajl-ruby (1.1.0-x86-mingw32)
 
 PLATFORMS
@@ -56,3 +57,4 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  wdm (>= 0.1.0)

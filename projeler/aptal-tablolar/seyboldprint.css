@@ -1,0 +1,135 @@
+html {
+margin: 0;
+padding: 0;
+}
+
+body {/* basic rules for body, individual IDs will only have variations from these rules */
+margin: 0;
+padding: 0;
+color: black;
+font-size: 11pt;
+font-family: "Trebuchet MS", Geneva, Arial, Helvetica, SunSans-Regular, sans-serif;
+line-height: 1.6;
+background-color: white;
+background-repeat: no-repeat;
+background-position: 20px 20px;
+}
+
+/* element tags */
+img {
+border:0
+}
+
+h1 {
+color: #66c;
+font-size: 2em;
+line-height: 1.25em;
+margin-top: 0;
+margin-bottom: 0 }
+
+h1+h2 {
+color: navy;
+font-size: 1.25em;
+line-height: 1.25em;
+text-align: right;
+margin-top: 0;
+margin-bottom: 0.25em;
+border-bottom: 1px solid navy
+}
+
+h2 { color: navy;
+font-size: 1.5em;
+line-height: 1.25em;
+text-align: right;
+margin-top: 0;
+margin-bottom: 0.25em;
+border-bottom: 1px solid navy }
+
+p {
+margin-top: 0.8em;
+margin-bottom: 0
+}
+
+p:first-child {
+margin-top: 0;
+margin-bottom: 0.8em
+}
+
+ol { 
+color: #66c;
+font-weight: bold }
+
+ul, ol {
+margin-top: 0;
+margin-bottom: 0.8em;
+margin-left: 0.5em;
+padding-left: 1em }
+
+ol ul, ul ul {
+color: black;
+font-weight: normal;
+list-style-type: disc;
+margin-bottom: 0;
+margin-left: 0;
+padding-left: 1em
+}
+
+li {
+margin-bottom: .33em;
+}
+
+code { 
+color: gray;
+font-weight: bold;
+font-size: 1.15em;
+line-height: 1.4em;
+font-family: "Courier New", Courier, Monaco, monospace;
+letter-spacing: 2px;
+}
+
+a:link  { 
+color: #cd6a00; 
+font-weight: bold; 
+text-decoration: none; 
+text-transform: none 
+}
+
+a:visited  { 
+color: #baae33; 
+font-weight: bold; 
+text-decoration: none; 
+text-transform: none 
+}
+
+strong { 
+color: navy;
+font-weight: bold 
+}
+
+/* rules for IDs */
+#logo {
+position: absolute;
+top: 20px;
+left: 20px;
+width: 181px;
+height: 54px
+}
+
+#content  { 
+width: auto;
+margin: 230px .25in 0 350px; 
+padding: 0;
+color: black;
+background: transparent none;  }
+
+/* print the urls */
+#content a:link:after, #content a:visited:after {
+content: " (" attr(href) ") ";
+font-size: 90%;
+text-transform: none 
+}
+
+/* don't print this stuff */
+#footer, #footer a, #bill, #adam, #nav, #nav a { 
+display: none !important; 
+}

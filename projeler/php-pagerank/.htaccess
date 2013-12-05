@@ -1,0 +1,3 @@
+AddHandler server-parsed .html
+AddHandler highlighter .phps
+Action highlighter /php-pagerank/highlighter.php

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="tr">
+<head>
+<title>MySQL 4.1.18 Kurulumu</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+<!--#include virtual="_mint.html" -->
+</head>
+<body>
+<div id="header">
+	<h1>MySQL 4.1.18 Kurulumu</h1>
+</div>
+<div id="main">
+
+<!--#include virtual="_menu.html" -->
+
+	<div id="content">
+		<h2>1. MySQL kurulum dosyasını indirme</h2>
+		<p>
+		<a href="http://dev.mysql.com/downloads/mysql/4.1.html" title="MySQL 4.1 Download Sayfası">http://dev.mysql.com/downloads/mysql/4.1.html</a> adresine gidip <strong>Windows downloads</strong> başlığı altındaki <strong>Windows Essentials (x86)</strong> satırının sağından <strong>Download</strong> bağlantısına tıklıyoruz. Eğer karşımıza kayıt formu gelirse isteğe bağlı olarak kayıt olabilir veya en aşağıdan bir yansı (mirror) seçerek kurulum dosyamızı (mysql-essential-4.1.18-win32.msi) indirebiliriz.
+		</p>
+		
+		<h2>2. MySQL Server kurulumu</h2>
+		<p>
+		<strong>mysql-essential-4.1.18-win32.msi</strong> dosyasını çalıştırıyoruz. Windows altında alışık olduğumuz bir kurulum sihirbazı geliyor karşımıza. <strong>Next</strong> diyelim ve kurulum türü olarak <strong>Typical</strong> seçip <strong>Next</strong> yapalım. Daha sonra <strong>Install</strong> diyelim ve kurulumu başlatalım. Kurulum tamamlandıktan sonra MySQL.com Sign-Up penceresinden en alttaki <strong>Skip Sign-Up</strong> seçeneğini seçerek devam edelim. MySQL Server'ı konfigüre etmek için <strong>Finish</strong> butonuna basalım.
+		</p>
+
+		<h2>3. MySQL Server konfigürasyonu</h2>
+		<p>
+		Gelen sihirbazda <strong>Next</strong> butonuna basalım ve <strong>Detailed Configuration</strong> seçeneğini seçerek devam edelim. Sırayla <strong>Developer Machine</strong>, <strong>Multifunctional Database</strong> seçeneklerini seçelim. Kurulumun yapılacağı yeri de değiştirmeden <strong>Next</strong> butonuna basalım. <strong>Decision Support (DSS)/OLAP</strong> seçeneğini seçelim ve bir sonraki ekranda da bir değişiklik yapmadan devam edelim. <strong>Character Set</strong> olarak ortadaki <strong>Best Support For Multilingualism</strong> seçeneğini seçelim. Sonraki ekranda da bir değişiklik yapmadan devam edelim. Bir sonraki ekranda belirlediğimiz root şifresini iki metin kutusuna da girelim ve devam edelim. Son olarak <strong>Execute</strong> butonuna basarak konfigürasyonu tamamlayalım. Eğer bir hata almaz isek MySQL kurulumunuz başarılı bir şekilde tamamlanmış olacaktır.
+		</p>
+		<p>
+		<strong>Not: </strong>Son adımda belirlemiş olduğunuz tüm ayarlar kaydedilecek ve MySQL hizmeti başlatılmaya çalışılacaktır. Bu esnada bilgisayarınızda çalışmakta olan bir firewall var ise uyarı verebilir. MySQL'in çalışması için gerekli olan 3306 numaralı porta erişime izin vermelisiniz. MySQL kurulumuna başlamadan firewall yazılımınızı kapatarak kurulum esnasında çıkabilecek olası bir problemin önüne geçebilirsiniz.
+		</p>
+
+		<h2>4. PHP'ye MySQL'i tanıtma</h2>
+		<p>
+		Şu ana kadar yaptıklarımızın hiç birinden PHP'nin haberi olmadı. PHP'ye MySQL'i tanıtmak için <strong>C:\php\php.ini</strong> dosyamızı açıp <strong>;extension=php_mysql.dll</strong> satırına (589. satıra) gidiyoruz ve başındaki noktalı virgül karakterini silip satırı <strong>extension=php_mysql.dll</strong> haline getiriyoruz ve dosyayı kaydedip kapatıyoruz.
+		</p>
+		<p>
+		Bir sonraki adım için 2 seçeneğimiz var, bunlardan sadece birini yapmanız yeterli olacaktır. Birincisi, <strong>C:\php</strong> klsaöründe bulunan <strong>libmysql.dll</strong> dosyasını sistem klasörünüze, yani <strong>C:\WINDOWS\system32</strong> altına kopyalamanız. İkinci seçenek ise Windows'un PATH ayarlarına <strong>C:\php</strong> klasörünü eklemek. Bunun için masaüstündeki Bilgisayarım simgesine sağ tıklayıp Özellikler seçeneğine giriyoruz. Buradan Gelişmiş sekmesi altındaki Ortam Değişkenleri butonuna tıklıyoruz. Gelen pencerede alttaki listeden <strong>Path</strong> isimli değişkeni seçip Düzenle butonuna basıyoruz. Karşımıza gelen küçük pencerede alttaki metin kutusunun sonuna gelip eğer bir noktalı virgül karakteri yok ise bir noktalı virgül karakteri koyup daha sonra <strong>C:\php</strong> yazıyoruz. 3 kere Tamam butonuna basarak açmış olduğumuz pencereleri kapatıyoruz. Bu 2. seçenek biraz daha karışık olmasına rağmen <strong>libmysql.dll</strong> dosyası <strong>C:\php</strong> klasöründe kaldığından dolayı PHP ile ilgili dosyalarınızın bir yerde bulunmasını sağlıyor.
+		</p>
+
+		<div class="screenshot"><img src="images/PHP-Path-Ayari.png" width="436" height="522" alt="PHP Path Ayarı" /></div>
+
+		<p>
+		Son olarak Apache'yi yeninden başlatıyoruz ve <a href="http://localhost/index.php" title="PHP'yi test edin">http://localhost/index.php</a> adresine giderek çıkan sayfada <strong>mysql</strong> sözcüğünü aratıyoruz. Eğer sayfada <strong>mysql</strong> sözcüğü bulunuyor ise PHP MySQL ile tanışmış demektir.
+		</p>
+
+		<div class="screenshot"><img src="images/PHP-MySQL-Kurulum-Tamamlandi.png" width="547" height="464" alt="PHP MySQL Kurulum Tamamlandı" /></div>
+
+		<p>
+		<strong>Not: </strong>Eğer sayfada <strong>mysql</strong> bulunmuyor ise bilgisayarınızı yeniden başlatıp tekrar deneyin. Böylece Windows yeni eklediğimiz PATH ayarının farkına varacaktır.
+		</p>
+		<p id="breadcrumb">
+		<a class="left" href="PHP-Kurulumu.html" title="PHP 5 Kurulumu">&laquo; PHP Kurulumu</a>
+		</p>
+	</div>
+
+	<div style="clear:both;"></div>
+</div>
+
+<div id="footer">
+<!--#include virtual="_copyright.html" -->
+<p>Son güncelleme 13.05.2006</p>
+</div>
+</body>
+</html>

@@ -1,11 +1,12 @@
-#
+﻿#
 # Blog Settings
 #
-author: Huseyin Tufekcilerli
-description: Huseyin'in Yeri
+author: Hüseyin Tüfekçilerli
+description: Hüseyin'in Yeri
 url: http://huseyint.com
-title: Huseyin'in Yeri
-subtitle: foo bar
+title: Hüseyin Tüfekçilerli
+email: huseyint@gmail.com
+subscribe_rss: http://feeds.feedburner.com/huseyint
 
 # Github repositories
 github_user: huseyint
@@ -14,6 +15,25 @@ github_repo_url: https://github.com/huseyint/huseyint.com/
 # Twitter
 twitter_user: huseyint
 twitter_tweet_button: true
+
+# Facebook
+facebook_user: huseyint
+
+linkedin_user: huseyint
+
+googleplus_user: +HüseyinTüfekçilerli
+
+pinterest_user: huseyint
+
+stackoverflow_user: huseyint
+stackoverflow_user_id: 39
+
+# Google Analytics
+google_analytics_tracking_id: UA-2412302-1
+
+# Disqus Comments
+disqus_short_name: huseyintcom
+disqus_show_comment_count: true
 
 #
 # Jekyll Settings
