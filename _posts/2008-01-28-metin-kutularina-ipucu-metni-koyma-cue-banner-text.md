@@ -37,39 +37,27 @@ Peki nasıl yapalım biz bu işi? Şöyle oluyor efendim; [EM_SETCUEBANNER][2] m
 
 SendMessage User32 sistem kütüphanesinde export edilmiş bir fonksiyon olduğu için bu fonksiyonu .NET içerisinden Platform Invocation veya kısaltacak olursak [P/Invoke][4] ile çağırmamız mümkün. EM_SETCUEBANNER sabitinin değeri ve SendMessage fonksiyonunun kullanacağımız versiyonu şu şekilde: 
 
-<div class="wp_syntax">
-  <table>
-    <tr>
-      <td class="code">
-        <pre class="csharp" style="font-family:monospace;"><span style="color: #0600FF; font-weight: bold;">internal</span> <span style="color: #0600FF; font-weight: bold;">const</span> <span style="color: #6666cc; font-weight: bold;">uint</span> ECM_FIRST <span style="color: #008000;">=</span> 0x1500<span style="color: #008000;">;</span>
-<span style="color: #0600FF; font-weight: bold;">internal</span> <span style="color: #0600FF; font-weight: bold;">const</span> <span style="color: #6666cc; font-weight: bold;">uint</span> EM_SETCUEBANNER <span style="color: #008000;">=</span> ECM_FIRST <span style="color: #008000;">+</span> <span style="color: #FF0000;">1</span><span style="color: #008000;">;</span>
-&nbsp;
-<span style="color: #008000;">&#91;</span>DllImport<span style="color: #008000;">&#40;</span><span style="color: #666666;">"user32.dll"</span>, CharSet <span style="color: #008000;">=</span> CharSet<span style="color: #008000;">.</span><span style="color: #0000FF;">Auto</span><span style="color: #008000;">&#41;</span><span style="color: #008000;">&#93;</span>
-<span style="color: #0600FF; font-weight: bold;">internal</span> <span style="color: #0600FF; font-weight: bold;">static</span> <span style="color: #0600FF; font-weight: bold;">extern</span> IntPtr SendMessage<span style="color: #008000;">&#40;</span>
+```csharp
+internal const uint ECM_FIRST = 0x1500;
+internal const uint EM_SETCUEBANNER = ECM_FIRST + 1;
+
+[DllImport("user32.dll", CharSet = CharSet.Auto)]
+internal static extern IntPtr SendMessage(
     HandleRef hWnd, 
-    <span style="color: #6666cc; font-weight: bold;">uint</span> msg, 
-    <span style="color: #6666cc; font-weight: bold;">bool</span> wParam, 
-    <span style="color: #6666cc; font-weight: bold;">string</span> lParam<span style="color: #008000;">&#41;</span><span style="color: #008000;">;</span></pre>
-      </td>
-    </tr>
-  </table>
-</div>
+    uint msg, 
+    bool wParam, 
+    string lParam);
+```
 
 Fonksiyonun parametrelerinin ne işe yaradığınız özetlemek gerekirse; [HandleRef][5] tipindeki hWnd parametresi ile TextBox kontrolümüzün Handle değerini, msg parametresi ile EM\_SETCUEBANNER sabitini, wParam ile Cue Banner metninin kontrol üzerinde iken de gösterilip gösterilmeyeceğini ve son olarak lParam ile de Cue Banner metnini göndereceğiz. Burada 3. parametre olan wParam için özel bir durum var. Windows Vista&#8217;ya kadar EM\_SETCUEBANNER mesajını gönderirken bu parametre göz ardı ediliyordu. Ancak Vista ile beraber buraya true değeri göndermemiz durumunda Cue Banner metni kontrol üzerinde iken de görünüyor, ta ki kullanıcı ilk karakteri girene kadar. Eğer Windows Vista kullanıyorsanız bu özelliği başlat menüsündeki arama kutusunda deneyebilirsiniz. Aşağıdaki kod txtSearch isminde bir TextBox kontrolüne Cue Banner olarak &#8220;Search&#8221; metnini atıyor: 
 
-<div class="wp_syntax">
-  <table>
-    <tr>
-      <td class="code">
-        <pre class="csharp" style="font-family:monospace;">SendMessage<span style="color: #008000;">&#40;</span>
-    <span style="color: #008000;">new</span> HandleRef<span style="color: #008000;">&#40;</span>txtSearch, txtSearch<span style="color: #008000;">.</span><span style="color: #0000FF;">Handle</span><span style="color: #008000;">&#41;</span>, 
+```csharp
+SendMessage(
+    new HandleRef(txtSearch, txtSearch.Handle), 
     EM_SETCUEBANNER, 
-    <span style="color: #0600FF; font-weight: bold;">false</span>, 
-    <span style="color: #666666;">"Search"</span><span style="color: #008000;">&#41;</span><span style="color: #008000;">;</span></pre>
-      </td>
-    </tr>
-  </table>
-</div>
+    false, 
+    "Search");
+```
 
 Kodu bu haliyle Windows Formunuzun constructoruna veya Form_Load eventine yerleştirmeniz mümkün. Ama bir kaç satır kod yazarak TextBox kontrolünden türeyen ve Cue Banner Text özelliği olan yeni bir TextBox kontrolü oluşturabiliriz. Böylelikle projenizin farklı yerlerinde böyle bir kontrol kullanacak olursanız sanki formunuza normal bir TextBox kontrolü yerleştirirmiş gibi bu kontrolü yerleştirip Properties penceresinden de Cue Banner metnini belirleyebilirsiniz. 
 

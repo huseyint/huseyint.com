@@ -22,26 +22,20 @@ Butonların hemen üstündeki çizgi pencerenin beyaz arkaplanlı üst ve gri ar
 
 Yapmamız gereken [Panel][1] kontrolünün [OnPaint][2] metodunu override edip bize sağlanan [Graphics][3] nesnesini kullanarak [ControlPaint.DrawBorder3D][4] static metodu ile [istediğimiz kenara][5], [istediğimiz tarzda][6] bir border ekleyebiliriz. C# ile anlatacak olursam:
 
-<div class="wp_syntax">
-  <table>
-    <tr>
-      <td class="code">
-        <pre class="csharp" style="font-family:monospace;"><span style="color: #6666cc; font-weight: bold;">class</span> EtchedBorderedPanel <span style="color: #008000;">:</span> Panel
-<span style="color: #008000;">&#123;</span>
-    <span style="color: #0600FF; font-weight: bold;">protected</span> <span style="color: #0600FF; font-weight: bold;">override</span> <span style="color: #6666cc; font-weight: bold;">void</span> OnPaint<span style="color: #008000;">&#40;</span>PaintEventArgs e<span style="color: #008000;">&#41;</span>
-    <span style="color: #008000;">&#123;</span>
-        <span style="color: #0600FF; font-weight: bold;">base</span><span style="color: #008000;">.</span><span style="color: #0000FF;">OnPaint</span><span style="color: #008000;">&#40;</span>e<span style="color: #008000;">&#41;</span><span style="color: #008000;">;</span>
-&nbsp;
-        ControlPaint<span style="color: #008000;">.</span><span style="color: #0000FF;">DrawBorder3D</span><span style="color: #008000;">&#40;</span>e<span style="color: #008000;">.</span><span style="color: #0000FF;">Graphics</span>, 
-            <span style="color: #0600FF; font-weight: bold;">this</span><span style="color: #008000;">.</span><span style="color: #0000FF;">ClientRectangle</span>, 
-            Border3DStyle<span style="color: #008000;">.</span><span style="color: #0000FF;">Etched</span>, 
-            Border3DSide<span style="color: #008000;">.</span><span style="color: #0000FF;">Top</span><span style="color: #008000;">&#41;</span><span style="color: #008000;">;</span>
-    <span style="color: #008000;">&#125;</span>
-<span style="color: #008000;">&#125;</span></pre>
-      </td>
-    </tr>
-  </table>
-</div>
+```csharp
+class EtchedBorderedPanel : Panel
+{
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+ 
+        ControlPaint.DrawBorder3D(e.Graphics, 
+            this.ClientRectangle, 
+            Border3DStyle.Etched, 
+            Border3DSide.Top);
+    }
+}
+```
 
 Bu kontrolü daha sonra penceremizin alt kısmına [Dock][7] edebiliriz. En son hafta sonu projem [FxLibrarian][8] için yaptığım About dialog penceresi:
 

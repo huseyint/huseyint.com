@@ -38,11 +38,11 @@ disqus_show_comment_count: true
 #
 # Jekyll Settings
 #
-markdown: rdiscount
+markdown: redcarpet
 pygments: true
 permalink: /archive/:year/:month/:day/:title/
-rdiscount:
-  extensions: [smart]
+redcarpet:
+    extensions: ["hard_wrap", "no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript", "with_toc_data"]
 paginate: 5
 paginate_path: "page/:num"
 category_dir: categories
