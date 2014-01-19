@@ -623,7 +623,8 @@ pre code {
     font-size: 14px;
     line-height: 1.46em;
 }
-.entry-content p code { 
+.entry-content p code,
+.entry-content li code { 
     font-size:14px;
     line-height: 1em;
 }
