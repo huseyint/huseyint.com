@@ -13,8 +13,8 @@ html { height: 100% }
 body {
     height: 100%;
     color: #333;
-    font-family: Georgia,Cambria,"Times New Roman",Times,serif;
-    font-weight: 300;
+    font-family: "Open Sans",Georgia,Cambria,"Times New Roman",Times,serif;
+    font-weight: 400;
     font-size: 13px;
     background: #515e72;
 }
