@@ -19,7 +19,7 @@ Starting from Windows Vista, you should have noticed that actions which require 
   <img src="/img/p/DateAndTimeUAC.png" alt="Date and Time" />
 </p>
 
-If your application has any buttons or menu items like this, to confirm the Windows UX Guidelines, it is a good idea to display a UAC shield icon on your controls. [This CodeProject article](http://www.codeproject.com/Articles/18509/Add-a-UAC-shield-to-a-button-when-elevation-is-req) has a good example that shows how to add shield icons to regular WinForms buttons. The gist is the following P/Invoke code:
+If your application has any buttons or menu items like this, to conform the Windows UX Guidelines, it is a good idea to display a UAC shield icon on your controls. [This CodeProject article](http://www.codeproject.com/Articles/18509/Add-a-UAC-shield-to-a-button-when-elevation-is-req) has a good example that shows how to add shield icons to regular WinForms buttons. The gist is the following P/Invoke code:
 
 ```csharp
 const int BCM_FIRST = 0x1600; //Normal button
