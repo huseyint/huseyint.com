@@ -5,6 +5,16 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face{
+    font-family:'ClearSans-Light';
+    src:url(/css/ClearSans-Light.eot);
+    src:url(/css/ClearSans-Light.eot#iefix) format('embedded-opentype');
+    src:url(/css/ClearSans-Light.ttf) format('truetype');
+    src:url(/css/ClearSans-Light.svg) format('svg');
+    src:url(/css/ClearSans-Light.woff) format('woff');
+    font-weight:normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +23,7 @@ html { height: 100% }
 body {
     height: 100%;
     color: #333;
-    font-family: "Open Sans",Georgia,Cambria,"Times New Roman",Times,serif;
+    font-family: "ClearSans-Light",Georgia,Cambria,"Times New Roman",Times,serif;
     font-weight: 400;
     font-size: 13px;
     background: #515e72;
