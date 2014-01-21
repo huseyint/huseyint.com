@@ -123,7 +123,7 @@ And this is the result:
   <img src="/img/p/DevExpress-UAC2.png" alt="DevExpress UAC SimpleButton" />
 </p>
 
-Much better, if I say so myself. This one uses [```LoadImage```](http://msdn.microsoft.com/en-us/library/windows/desktop/ms648045.aspx) P/Invoke call to get the correct size of the icon, so we don't need to scale it down. Since this function returns an icon handle, we are just converting the icon to a bitmap. Using this method, you can even put UAC shield icons to your menu items:
+Much better, if I may say so myself. This one uses [```LoadImage```](http://msdn.microsoft.com/en-us/library/windows/desktop/ms648045.aspx) P/Invoke call to get the correct size of the icon, so we don't need to scale it down. Since this function returns an icon handle, we are just converting the icon to a bitmap. Using this method, you can even put UAC shield icons to your menu items:
 
 <p align="center">
   <img src="/img/p/WinForms-UAC-MenuItem.png" alt="WinForms UAC menu item" />
