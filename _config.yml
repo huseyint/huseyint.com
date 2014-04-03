@@ -40,6 +40,7 @@ disqus_show_comment_count: true
 #
 markdown: redcarpet
 pygments: true
+include: [".well-known"]
 permalink: /archive/:year/:month/:day/:title/
 redcarpet:
     extensions: ["hard_wrap", "no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript", "with_toc_data"]
