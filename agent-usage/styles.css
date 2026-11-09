@@ -712,44 +712,6 @@ h3 {
 .faq summary:hover {
   color: var(--blue);
 }
-.site-footer {
-  border-top: 1px solid var(--line);
-}
-.footer-top {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  padding: 31px 0;
-}
-.footer-top .brand {
-  font-size: 14px;
-}
-.footer-top > a:last-child {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 11px;
-  color: #717989;
-  margin-left: auto;
-}
-.footer-top .icon {
-  width: 16px;
-  height: 16px;
-}
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 0 30px;
-  font-size: 10px;
-  color: #727a88;
-  border-top: 1px solid var(--line);
-}
-.footer-bottom a:hover,
-.footer-top > a:last-child:hover {
-  color: var(--blue);
-}
 
 @media (min-width: 1500px) {
   .hero {
@@ -1031,27 +993,6 @@ h3 {
   }
   .faq summary::after {
     top: 15px;
-  }
-  .footer-top {
-    padding: 24px 0;
-    gap: 10px;
-  }
-  .footer-top .brand {
-    font-size: 12px;
-  }
-  .footer-top > a:last-child {
-    font-size: 9px;
-    gap: 6px;
-  }
-  .footer-bottom {
-    flex-wrap: wrap;
-    row-gap: 12px;
-    font-size: 9px;
-    padding-bottom: 25px;
-  }
-  .footer-bottom > span:nth-child(2) {
-    order: 3;
-    width: 100%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
