@@ -3,6 +3,7 @@ title: Projeler
 author: Hüseyin Tüfekçilerli
 layout: page
 ---
+* [AI Coding Usage][7]
 * [Apache, PHP ve MySQL Kurulumu][1]
 * [Aptal Tablolar][2]
 * [ExtJS Cheat Sheet][3]
@@ -16,3 +17,5 @@ layout: page
 [4]: /FxLibrarian/
 [5]: /projeler/php-pagerank/
 [6]: /projeler/RapidCheck/
+
+[7]: /agent-usage/
